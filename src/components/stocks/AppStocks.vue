@@ -1,26 +1,23 @@
+<!-- eslint-disable vue/valid-v-for -->
+z
 <template>
   <div>
     <ul id="stocks">
-      <li v-for="element in companies" :key="element.id">
-        <div class="company-box">
-          <span class="company-name">{{ element.company }}</span>
-          <span class="company-price">${{ element.price.toFixed(2) }}</span>
-          <br />
-          <input type="number" placeholder="Quantity" />
-          <button>Buy</button>
-        </div>
-      </li>
+      <AppStocksStock v-for="stock in stocks" :stock="stock"></AppStocksStock>
     </ul>
   </div>
 </template>
 
 <script>
-export default {
-  name: "VuetraderAppStocks",
+import AppStocksStock from "./AppStocksStock.vue";
 
+export default {
+  components: {
+    AppStocksStock,
+  },
   data() {
     return {
-      companies: [
+      stocks: [
         { id: 1, company: "ABC Corporation", price: 100 },
         { id: 2, company: "XYZ Inc.", price: 200 },
         { id: 3, company: "Foo Industries", price: 150 },
@@ -69,28 +66,9 @@ export default {
   padding: 0;
   margin: 150px auto;
   width: 100%;
+  max-width: $max-size;
   display: grid;
   grid-template-columns: auto auto auto auto;
   gap: 40px 20px;
-  li {
-    list-style: none;
-    text-align: left;
-    background-color: $secondary-orange;
-    padding: 10px;
-    border-radius: $border-radius-medium;
-
-    .company-name {
-      margin-right: 10px;
-    }
-    .company-price {
-      font-weight: 400;
-    }
-
-    input {
-      margin-top: 10px;
-      margin-right: 10px;
-      width: 50%;
-    }
-  }
 }
 </style>

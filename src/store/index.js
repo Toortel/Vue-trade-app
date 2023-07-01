@@ -4,7 +4,9 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    funds: 9000,
+  },
   getters: {},
   mutations: {},
   actions: {},

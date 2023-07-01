@@ -2,9 +2,15 @@
   <div>
     <nav>
       <ul id="left-nav">
-        <router-link to="/" tag="li">VueTrader</router-link>
-        <router-link to="/portfolio" tag="li">Portfolio</router-link>
-        <router-link to="/stocks" tag="li">Stocks</router-link>
+        <router-link to="/" tag="li" activeClass="active" exact
+          >VueTrader</router-link
+        >
+        <router-link to="/portfolio" tag="li" activeClass="active" exact
+          >Portfolio</router-link
+        >
+        <router-link to="/stocks" tag="li" activeClass="active" exact
+          >Stocks</router-link
+        >
       </ul>
       <ul id="right-nav">
         <li>End Day</li>
@@ -27,6 +33,7 @@ nav {
   left: 0;
   position: fixed;
   width: 80%;
+  max-width: $max-size;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -50,7 +57,11 @@ nav {
     }
 
     li:hover {
-      background-color: $secondary-orange;
+      color: white;
+    }
+
+    li.active {
+      color: white;
     }
   }
 }
