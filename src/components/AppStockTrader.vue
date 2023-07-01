@@ -17,7 +17,7 @@ export default {};
 #trader-box {
   font-family: $font;
   padding: 20px;
-  margin: 30px auto;
+  margin: 150px auto;
   border: 1px solid black;
 }
 </style>

@@ -2,14 +2,14 @@
   <div>
     <nav>
       <ul id="left-nav">
-        <li>VueTrader</li>
-        <li>Portfolio</li>
-        <li>Stocks</li>
+        <router-link to="/" tag="li">VueTrader</router-link>
+        <router-link to="/portfolio" tag="li">Portfolio</router-link>
+        <router-link to="/stocks" tag="li">Stocks</router-link>
       </ul>
       <ul id="right-nav">
         <li>End Day</li>
         <li>Save & Load</li>
-        <li><strong>Funds: </strong></li>
+        <li tag="li"><strong>Funds: </strong></li>
       </ul>
     </nav>
   </div>
@@ -23,14 +23,19 @@ export default {};
 @import "../utility/variables.scss";
 
 nav {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
   margin: 25px auto;
   background-color: $main-orange;
   font-family: $font;
   font-weight: 400;
-  border-radius: 15px;
-  position: sticky;
+  border-radius: $border-radius-medium;
 
   ul {
     list-style: none;
@@ -40,7 +45,12 @@ nav {
 
     li {
       margin: 10px 20px;
+      padding: 10px;
       cursor: pointer;
+    }
+
+    li:hover {
+      background-color: $secondary-orange;
     }
   }
 }
