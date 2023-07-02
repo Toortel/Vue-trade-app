@@ -4,7 +4,13 @@
     <p>This application enables saving and loading your data.</p>
     <p>Click on 'End Day' to simulate beggining of a new day!</p>
     <hr />
-    <p>Your funds:</p>
+    <p>
+      Your funds: ${{
+        this.$store.getters.funds.toLocaleString("en", {
+          minimumFractionDigits: 2,
+        })
+      }}
+    </p>
   </div>
 </template>
 
@@ -15,6 +21,7 @@ export default {};
 <style lang="scss" scoped>
 @import "../utility/variables.scss";
 #trader-box {
+  width: 75%;
   font-family: $font;
   padding: 20px;
   margin: 150px auto;

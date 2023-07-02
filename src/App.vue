@@ -9,6 +9,9 @@
 import AppHeader from "./components/AppHeader.vue";
 
 export default {
+  created() {
+    this.$store.dispatch("initStocks");
+  },
   components: {
     AppHeader,
   },
@@ -17,7 +20,7 @@ export default {
 
 <style lang="scss">
 #app {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 </style>

@@ -1,14 +1,17 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import stocks from "./modules/stocks";
+import portfolio from "./modules/portfolio";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    funds: 9000,
-  },
   getters: {},
   mutations: {},
   actions: {},
-  modules: {},
+  modules: {
+    stocks,
+    portfolio,
+  },
 });
