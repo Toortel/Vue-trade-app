@@ -4,7 +4,7 @@
     <span class="company-price">${{ stock.price.toFixed(2) }}</span>
     <br />
     <input type="number" placeholder="Quantity" v-model="quantity" />
-    <button @click="buyStock">Buy</button>
+    <button @click="buy">Buy</button>
     <p class="error-message">Invalid amount of stocks!</p>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   mounted() {},
 
   methods: {
-    buyStock(event) {
+    buy(event) {
       let errorMessageTransmitter = event.target;
       if (this.quantity < 1) {
         errorMessageTransmitter.previousSibling.style.backgroundColor =

@@ -2,7 +2,7 @@
   <div id="trader-box">
     <h2>Trade or view your Portfolio</h2>
     <p>This application enables saving and loading your data.</p>
-    <p>Click on 'End Day' to simulate beggining of a new day!</p>
+    <p>Click on 'End Day' to simulate beginning of a new day!</p>
     <hr />
     <p>
       Your funds: ${{

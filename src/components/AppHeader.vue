@@ -10,19 +10,34 @@
     </nav>
     <nav id="nav-bar">
       <ul id="left-nav">
-        <router-link to="/" tag="li" activeClass="active" exact
+        <router-link
+          to="/"
+          tag="li"
+          class="reactive-li"
+          activeClass="active"
+          exact
           >VueTrader</router-link
         >
-        <router-link to="/portfolio" tag="li" activeClass="active" exact
+        <router-link
+          to="/portfolio"
+          tag="li"
+          class="reactive-li"
+          activeClass="active"
+          exact
           >Portfolio</router-link
         >
-        <router-link to="/stocks" tag="li" activeClass="active" exact
+        <router-link
+          to="/stocks"
+          tag="li"
+          class="reactive-li"
+          activeClass="active"
+          exact
           >Stocks</router-link
         >
       </ul>
       <ul id="right-nav">
-        <li>End Day</li>
-        <li>Save & Load</li>
+        <li class="reactive-li">End Day</li>
+        <li class="reactive-li">Save & Load</li>
         <li tag="li">
           <strong
             >Funds: ${{
@@ -71,10 +86,12 @@ export default {};
     li {
       margin: 10px 20px;
       padding: 10px;
+    }
+    li.reactive-li {
       cursor: pointer;
     }
 
-    li:hover {
+    li.reactive-li:hover {
       color: white;
     }
 

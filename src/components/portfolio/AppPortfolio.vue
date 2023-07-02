@@ -3,7 +3,7 @@
   <div>
     <ul id="stocks">
       <app-portfolio-stock
-        v-for="stock in stocksPortfolio"
+        v-for="stock in stocks"
         :stock="stock"
       ></app-portfolio-stock>
     </ul>
@@ -12,6 +12,8 @@
 
 <script>
 import AppPortfolioStock from "./AppPortfolioStock.vue";
+import { mapGetters } from "vuex";
+
 export default {
   components: {
     AppPortfolioStock,
@@ -21,14 +23,12 @@ export default {
     return {};
   },
 
-  mounted() {},
-
   methods: {},
 
   computed: {
-    stocksPortfolio() {
-      return this.$store.getters.stocksPortfolio;
-    },
+    ...mapGetters({
+      stocks: "stocksPortfolio",
+    }),
   },
 };
 </script>
@@ -43,13 +43,24 @@ export default {
   width: 80%;
   max-width: $max-size;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 40px 20px;
 }
 
+@media (max-width: 1100px) {
+  #stocks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 @media (max-width: 900px) {
   #stocks {
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 500px) {
+  #stocks {
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
