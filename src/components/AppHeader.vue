@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div id="overlay">
+      <div id="modal">
+        <p>Save</p>
+        <p>Load</p>
+      </div>
+    </div>
     <nav id="nav-bar-small">
       <div id="hamburger">
         <div id="hamburger-a"></div>
@@ -37,7 +43,9 @@
       </ul>
       <ul id="right-nav">
         <li class="reactive-li" @click="endDay">End Day</li>
-        <li class="reactive-li">Save & Load</li>
+        <li class="reactive-li" id="dropdown" @click="showDropdown">
+          Save & Load
+        </li>
         <li tag="li">
           <strong
             >Funds: ${{ this.$store.getters.funds | toCurrencyFormat }}</strong
@@ -57,12 +65,43 @@ export default {
     endDay() {
       this.randomizeStocks();
     },
+    showDropdown(event) {
+      event.target.nextSibling.classList.toggle = "modal-visible";
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../utility/variables.scss";
+#overlay {
+  font-family: $font;
+  font-weight: 700;
+  font-size: 3rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(142, 142, 142, 0.219);
+  z-index: 50;
+}
+
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.219);
+  padding: 100px;
+  z-index: 51;
+
+  p {
+    cursor: pointer;
+    margin-top: 0;
+  }
+}
+
 #nav-bar-small {
   display: none;
 }
