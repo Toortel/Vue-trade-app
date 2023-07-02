@@ -1,6 +1,11 @@
 <!-- eslint-disable vue/valid-v-for -->
 <template>
   <div>
+    <h3 id="portfolio-title">
+      {{
+        stocksNotLoaded ? "You haven't bought any stocks yet" : "Your stocks"
+      }}
+    </h3>
     <ul id="stocks">
       <app-portfolio-stock
         v-for="stock in stocks"
@@ -23,23 +28,32 @@ export default {
     return {};
   },
 
-  methods: {},
-
   computed: {
     ...mapGetters({
       stocks: "stocksPortfolio",
     }),
+    stocksNotLoaded() {
+      console.log(this.stocks);
+      return this.stocks.length == 0 ? true : false;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../utility/variables.scss";
+h3 {
+  font-family: $font;
+  font-size: 2rem;
+  margin: 175px 0 50px 0;
+  text-align: center;
+}
+
 #stocks {
   font-family: $font;
   font-weight: 300;
   padding: 20px;
-  margin: 150px auto;
+  margin: 50px auto;
   width: 80%;
   max-width: $max-size;
   display: grid;

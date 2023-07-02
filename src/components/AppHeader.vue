@@ -36,15 +36,11 @@
         >
       </ul>
       <ul id="right-nav">
-        <li class="reactive-li">End Day</li>
+        <li class="reactive-li" @click="endDay">End Day</li>
         <li class="reactive-li">Save & Load</li>
         <li tag="li">
           <strong
-            >Funds: ${{
-              this.$store.getters.funds.toLocaleString("en", {
-                minimumFractionDigits: 2,
-              })
-            }}</strong
+            >Funds: ${{ this.$store.getters.funds | toCurrencyFormat }}</strong
           >
         </li>
       </ul>
@@ -53,7 +49,16 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+
+export default {
+  methods: {
+    ...mapActions(["randomizeStocks"]),
+    endDay() {
+      this.randomizeStocks();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -101,7 +106,7 @@ export default {};
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
   #nav-bar {
     width: 100%;
     border-radius: 0;

@@ -4,13 +4,7 @@
     <p>This application enables saving and loading your data.</p>
     <p>Click on 'End Day' to simulate beginning of a new day!</p>
     <hr />
-    <p>
-      Your funds: ${{
-        this.$store.getters.funds.toLocaleString("en", {
-          minimumFractionDigits: 2,
-        })
-      }}
-    </p>
+    <p>Your funds: ${{ this.$store.getters.funds | toCurrencyFormat }}</p>
   </div>
 </template>
 

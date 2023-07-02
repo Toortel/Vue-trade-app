@@ -13,16 +13,22 @@
 export default {
   data() {
     return {
-      quantity: 0,
+      quantity: +0,
     };
   },
   props: ["stock"],
   mounted() {},
 
+  computed: {
+    notEnoughFunds() {
+      return this.quantity * this.stock.price > this.$store.getters.funds;
+    },
+  },
+
   methods: {
     buy(event) {
       let errorMessageTransmitter = event.target;
-      if (this.quantity < 1) {
+      if (this.quantity < 1 || this.notEnoughFunds) {
         errorMessageTransmitter.previousSibling.style.backgroundColor =
           "salmon";
         errorMessageTransmitter.nextSibling.classList.add(
@@ -38,8 +44,8 @@ export default {
 
       const order = {
         stockID: this.stock.id,
-        stockQuantity: this.quantity,
-        stockPrice: this.stock.price,
+        stockQuantity: +this.quantity,
+        stockPrice: +this.stock.price,
       };
 
       this.$store.dispatch("buyStock", order);

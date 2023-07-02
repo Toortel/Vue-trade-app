@@ -6,22 +6,34 @@ const state = {
 
 const mutations = {
   BUY_STOCK: (state, { stockID, stockQuantity, stockPrice }) => {
-    const existingStock = state.stocks.find((element) => element.id == stockID);
-    if (existingStock) {
-      existingStock.quantity += stockQuantity;
+    if (
+      stockQuantity * stockPrice > state.funds ||
+      !Number.isInteger(stockQuantity)
+    ) {
+      return;
     } else {
-      state.stocks.push({
-        id: stockID,
-        quantity: stockQuantity,
-      });
-    }
+      const existingStock = state.stocks.find(
+        (element) => element.id == stockID
+      );
+      if (existingStock) {
+        existingStock.quantity += stockQuantity;
+      } else {
+        state.stocks.push({
+          id: stockID,
+          quantity: stockQuantity,
+        });
+      }
 
-    state.funds -= stockPrice * stockQuantity;
+      state.funds -= stockPrice * stockQuantity;
+    }
   },
 
   SELL_STOCK: (state, { stockID, stockQuantity, stockPrice }) => {
     const existingStock = state.stocks.find((element) => element.id == stockID);
-    if (existingStock.quantity > stockQuantity) {
+    if (
+      existingStock.quantity > stockQuantity ||
+      !Number.isInteger(stockQuantity)
+    ) {
       existingStock.quantity -= stockQuantity;
     } else {
       state.stocks.splice(state.stocks.indexOf(existingStock), 1);

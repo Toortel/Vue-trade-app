@@ -23,13 +23,18 @@ export default {
     };
   },
   props: ["stock"],
-  mounted() {},
+
+  computed: {
+    notEnoughStocks() {
+      return this.quantity > this.stock.quantity;
+    },
+  },
 
   methods: {
     ...mapActions(["sellStock"]),
     sell(event) {
       let errorMessageTransmitter = event.target;
-      if (this.quantity < 1 || this.quantity > this.stock.quantity) {
+      if (this.quantity < 1 || this.notEnoughStocks) {
         errorMessageTransmitter.previousSibling.style.backgroundColor =
           "salmon";
         errorMessageTransmitter.nextSibling.classList.add(
