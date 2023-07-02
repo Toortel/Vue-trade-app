@@ -26,18 +26,12 @@ export default {
   margin: 0 auto;
 }
 
-.slide-enter {
-}
-
 .slide-enter-active {
-  animation: slide-in 300ms ease-out;
-}
-
-.slide-leave {
+  animation: slide-in 300ms ease-out forwards;
 }
 
 .slide-leave-active {
-  animation: slide-out 300ms ease-out;
+  animation: slide-out 300ms ease-out forwards;
 }
 
 @keyframes slide-in {
