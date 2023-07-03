@@ -1,9 +1,14 @@
 <template>
   <div>
-    <div id="overlay">
-      <div id="modal">
+    <div
+      id="overlay"
+      :class="{ 'is-visible': overlayVisible }"
+      @click="toggleOverlay"
+    >
+      <div id="modal" @click.stop>
         <p>Save</p>
         <p>Load</p>
+        <p id="go-back" @click="toggleOverlay">return</p>
       </div>
     </div>
     <nav id="nav-bar-small">
@@ -43,7 +48,7 @@
       </ul>
       <ul id="right-nav">
         <li class="reactive-li" @click="endDay">End Day</li>
-        <li class="reactive-li" id="dropdown" @click="showDropdown">
+        <li class="reactive-li" id="dropdown" @click="toggleOverlay">
           Save & Load
         </li>
         <li tag="li">
@@ -60,13 +65,19 @@
 import { mapActions } from "vuex";
 
 export default {
+  data() {
+    return {
+      overlayVisible: false,
+    };
+  },
   methods: {
     ...mapActions(["randomizeStocks"]),
     endDay() {
       this.randomizeStocks();
     },
-    showDropdown(event) {
-      event.target.nextSibling.classList.toggle = "modal-visible";
+    toggleOverlay() {
+      console.log(this.overlayVisible);
+      this.overlayVisible = !this.overlayVisible;
     },
   },
 };
@@ -75,6 +86,7 @@ export default {
 <style lang="scss" scoped>
 @import "../utility/variables.scss";
 #overlay {
+  display: none;
   font-family: $font;
   font-weight: 700;
   font-size: 3rem;
@@ -85,21 +97,35 @@ export default {
   height: 100%;
   background-color: rgba(142, 142, 142, 0.219);
   z-index: 50;
-}
 
-#modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.219);
-  padding: 100px;
-  z-index: 51;
+  #modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.445);
+    padding: 75px 150px;
+    border-radius: $border-radius-medium;
+    z-index: 51;
 
-  p {
-    cursor: pointer;
-    margin-top: 0;
+    p {
+      cursor: pointer;
+      margin-top: 0;
+    }
+
+    p:hover {
+      text-decoration: underline;
+      color: white;
+    }
+
+    #go-back {
+      font-size: 2rem;
+    }
   }
+}
+#overlay.is-visible {
+  display: block;
 }
 
 #nav-bar-small {
