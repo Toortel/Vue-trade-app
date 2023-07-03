@@ -6,16 +6,18 @@
       @click="toggleOverlay"
     >
       <div id="modal" @click.stop>
-        <p>Save</p>
-        <p>Load</p>
+        <p @click="saveData">Save</p>
+        <p @click="loadData">Load</p>
         <p id="go-back" @click="toggleOverlay">return</p>
       </div>
     </div>
     <nav id="nav-bar-small">
       <div id="hamburger">
-        <div id="hamburger-a"></div>
-        <div id="hamburger-b"></div>
-        <div id="hamburger-c"></div>
+        <div id="container">
+          <div id="hamburger-a"></div>
+          <div id="hamburger-b"></div>
+          <div id="hamburger-c"></div>
+        </div>
       </div>
       <span id="nav-bar-small-title">VueTrade</span>
     </nav>
@@ -58,11 +60,49 @@
         </li>
       </ul>
     </nav>
+    <!-- <div>
+      <ul id="vertical-nav">
+        <router-link
+          to="/"
+          tag="li"
+          class="reactive-li"
+          activeClass="active"
+          exact
+          >VueTrader</router-link
+        >
+        <router-link
+          to="/portfolio"
+          tag="li"
+          class="reactive-li"
+          activeClass="active"
+          exact
+          >Portfolio</router-link
+        >
+        <router-link
+          to="/stocks"
+          tag="li"
+          class="reactive-li"
+          activeClass="active"
+          exact
+          >Stocks</router-link
+        >
+        <li class="reactive-li" @click="endDay">End Day</li>
+        <li class="reactive-li" id="dropdown" @click="toggleOverlay">
+          Save & Load
+        </li>
+        <li tag="li">
+          <strong
+            >Funds: ${{ this.$store.getters.funds | toCurrencyFormat }}</strong
+          >
+        </li>
+      </ul>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import { db as databaseLink } from "../utility/firebase";
 
 export default {
   data() {
@@ -76,9 +116,31 @@ export default {
       this.randomizeStocks();
     },
     toggleOverlay() {
-      console.log(this.overlayVisible);
       this.overlayVisible = !this.overlayVisible;
     },
+    saveData() {
+      const data = {
+        funds: this.$store.getters.funds,
+        stocksPortfolio: this.$store.getters.stocksPortfolio,
+        stocks: this.$store.getters.stocks,
+      };
+
+      fetch(databaseLink + "data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Headers":
+            "Content-Type, Authorization, X-Requested-With",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(data),
+      }).then((response) => {
+        const result = response.json();
+        console.log(result);
+      });
+    },
+    loadData() {},
   },
 };
 </script>
@@ -104,7 +166,7 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.445);
+    background-color: rgba(0, 0, 0, 0.469);
     padding: 75px 150px;
     border-radius: $border-radius-medium;
     z-index: 51;
@@ -202,6 +264,11 @@ export default {
       //   text-align: right;
       // }
 
+      #container {
+        display: inline-block;
+        cursor: pointer;
+      }
+
       #hamburger-a {
         width: 40px;
         height: 0px;
@@ -227,5 +294,23 @@ export default {
       }
     }
   }
+
+  // #vertical-nav {
+  //   display: none;
+  //   font-family: $font;
+  //   padding: 0;
+  //   position: absolute;
+  //   margin-top: 70px;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-evenly;
+  //   list-style: none;
+  //   text-align: center;
+  //   color: white;
+  //   background-color: $secondary-orange;
+  // }
 }
 </style>

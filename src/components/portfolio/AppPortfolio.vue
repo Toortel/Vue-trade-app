@@ -33,7 +33,6 @@ export default {
       stocks: "stocksPortfolio",
     }),
     stocksNotLoaded() {
-      console.log(this.stocks);
       return this.stocks.length == 0 ? true : false;
     },
   },
